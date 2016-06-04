@@ -4,6 +4,8 @@
 # Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --fld empirical --test.type SKK,CQ,KY --output test_data/new_ouput_test2  --groups 4,5 --gene.id Pcmtd1
 # Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --test.type SKK,CQ,KY --output test_data/new_ouput_test2  --groups 4,5 --gene.id Pcmtd1
 # Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --fld normal --test.type SKK,CQ,KY --output test_data/new_ouput_test2  --groups 4,5 --gene.id Pcmtd1
+# Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --fld normal --output test_data/new_ouput_test2  --groups 4,5 --gene.id Pcmtd1
+# 
 
 # Install dependencies
 library("Rsamtools")
@@ -22,8 +24,8 @@ options<-matrix(c(	'gtf',	'i',	1,	"character",
 		  			'bam2',	'ba2',	1,	"character",
 		  			'fld',	'fld',	1,	"character",
 		  			'test.type', 'testtype', 1, "character",
-		  			'groups', 'grp', 1, "character",
-		  			'gene.id',	'g',	1, "character",
+		  			'groups', 'grp', 2, "character",
+		  			'gene.id',	'g',	2, "character",
 		  			'output', 'o', 1,	"character",
 		  			'help', 'h', 0,      "logical"),
 		  				ncol=4,byrow=TRUE)
@@ -72,10 +74,8 @@ if(length(test.type)>1)
 	test.type <- unlist(strsplit(ret.opts$test.type, ","))
 }
 
-
 # Group
-group.name <- unlist(strsplit(ret.opts$groups, ","))
-
+#group.name <- unlist(strsplit(ret.opts$groups, ","))
 
 # Main function
 IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1)), rep.info.2 = rep(1, length(bam.list2)), FLD = FLD, test.type = test.type,
@@ -84,8 +84,13 @@ IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1
 # Estimate output 
 estimates <- paste(output.dir,"estimates.txt",sep="/")
 
-# pie_compare is a function of IUTA library. 
-pie_compare(gene.name, n1=3, geometry="Euclidean", adjust.weight = 1e-2, output.file =paste("Pieplot_", gene.name, ".pdf", sep = ""), group.name=group.name, estimates, output.screen=FALSE)
+# pie_compare is a function of IUTA library.
 
-# bar_comapre 
-bar_compare(gene.name, n1=3, estimates, legend.pos="topleft", output.screen=FALSE)
+if(!is.null(ret.opts$gene.id))
+{
+	gene.name <- ret.opts$gene.id
+	# pie chart
+	pie_compare(gene.name, n1=3, geometry="Euclidean", adjust.weight = 1e-2, output.file =paste("Pieplot_", gene.name, ".pdf", sep = ""), group.name=group.name, estimates, output.screen=FALSE)
+	# bar chart
+	bar_compare(gene.name, n1=3, estimates, legend.pos="topleft", output.screen=FALSE)
+}
