@@ -43,9 +43,6 @@ bam.list2 <- ret.opts$bam2
 FLD <- ret.opts$fld
 test.type <- ret.opts$test.type
 output.dir <- ret.opts$output
-gene.name <- ret.opts$gene.id
-group.name <- ret.opts$groups
-
 
 # bam lists
 bam.list1 <- unlist(strsplit(ret.opts$bam1, ","))
@@ -74,9 +71,6 @@ if(length(test.type)>1)
 	test.type <- unlist(strsplit(ret.opts$test.type, ","))
 }
 
-# Group
-#group.name <- unlist(strsplit(ret.opts$groups, ","))
-
 # Main function
 IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1)), rep.info.2 = rep(1, length(bam.list2)), FLD = FLD, test.type = test.type,
     output.dir = output.dir, output.na = TRUE, genes.interested = "all")
@@ -86,11 +80,15 @@ estimates <- paste(output.dir,"estimates.txt",sep="/")
 
 # pie_compare is a function of IUTA library.
 
-if(!is.null(ret.opts$gene.id))
+if(!is.null(ret.opts$gene.id) && (!is.null(ret.opts$gene.id)))
 {
 	gene.name <- ret.opts$gene.id
+	group.name <- ret.opts$groups
+	group.name <- unlist(strsplit(ret.opts$groups, ","))
+
 	# pie chart
 	pie_compare(gene.name, n1=3, geometry="Euclidean", adjust.weight = 1e-2, output.file =paste("Pieplot_", gene.name, ".pdf", sep = ""), group.name=group.name, estimates, output.screen=FALSE)
+	
 	# bar chart
 	bar_compare(gene.name, n1=3, estimates, legend.pos="topleft", output.screen=FALSE)
 }
