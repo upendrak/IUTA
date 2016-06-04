@@ -5,7 +5,7 @@
 # Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --test.type SKK,CQ,KY --output test_data/new_ouput_test2  --groups 4,5 --gene.id Pcmtd1
 # Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --fld normal --test.type SKK,CQ,KY --output test_data/new_ouput_test2  --groups 4,5 --gene.id Pcmtd1
 # Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --fld normal --output test_data/new_ouput_test2  --groups 4,5 --gene.id Pcmtd1
-# 
+# Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --fld normal --test.type SKK,CQ,KY --output test_data/new_ouput_test2
 
 # Install dependencies
 library("Rsamtools")
@@ -37,6 +37,7 @@ if ( !is.null(ret.opts$help) ) {
   q(status=1);
 }
 
+# Assignments
 transcript.info <- ret.opts$gtf
 bam.list1 <- ret.opts$bam1
 bam.list2 <- ret.opts$bam2
@@ -78,8 +79,7 @@ IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1
 # Estimate output 
 estimates <- paste(output.dir,"estimates.txt",sep="/")
 
-# pie_compare is a function of IUTA library.
-
+# pie_compare and bar_compare
 if(!is.null(ret.opts$gene.id) && (!is.null(ret.opts$gene.id)))
 {
 	gene.name <- ret.opts$gene.id
