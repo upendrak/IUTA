@@ -1,7 +1,7 @@
 #!/usr/bin/Rscript
 
 # Rscript test_Rscript.R -h
-#Rscript test_Rscript.R --gtf mm10_kg_sample_IUTA.gtf --bam1 sample_1.bam,sample_2.bam,sample_3.bam --bam2 sample_4.bam,sample_5.bam,sample_6.bam --output new_ouput_test  --groups 4,5 --gene.id Pcmtd1
+Rscript test_Rscript.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --output test_data/new_ouput_test  --groups 4,5 --gene.id Pcmtd1
 
 # Install dependencies
 library("Rsamtools")
