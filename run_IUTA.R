@@ -1,6 +1,7 @@
 #!/usr/bin/Rscript
 
-# Rscript run_IUTA.R -h
+## Example command line invocation
+# Rscript run_IUTA.R -h (just to look at the help function)
 # Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --fld empirical --test.type SKK,CQ,KY --output test_data/new_ouput_test2  --groups 4,5 --gene.id Pcmtd1
 # Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --test.type SKK,CQ,KY --output test_data/new_ouput_test2  --groups 4,5 --gene.id Pcmtd1
 # Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --fld normal --test.type SKK,CQ,KY --output test_data/new_ouput_test2  --groups 4,5 --gene.id Pcmtd1
@@ -10,13 +11,12 @@
 # Install dependencies
 library("Rsamtools")
 library("IUTA")
-#install.packages("getopt")
 library("getopt")
 
 args<-commandArgs(TRUE)
 
 #############################################################
-## Section 0: Command-line preparations and getopt parsing ##
+## Command-line preparations and getopt parsing ##
 #############################################################
 
 options<-matrix(c(	'gtf',	'i',	1,	"character",
