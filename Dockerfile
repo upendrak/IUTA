@@ -10,7 +10,11 @@ RUN apt-get install r-base-dev -y
 RUN apt-get install libxml2 -y
 RUN apt-get install libxml2-dev -y
 
+RUN wget http://www.niehs.nih.gov/resources/files/IUTA_1.0.tar.gz
+RUN tar zxvf IUTA_1.0.tgz
+
 RUN Rscript -e 'source("http://bioconductor.org/biocLite.R"); biocLite("Rsamtools");'
+RUN Rscript -e 'install.packages("/IUTA_1.0.tar.gz", repos = NULL, type="source");'
 RUN Rscript -e 'install.packages("getopt");'
 
 RUN wget https://raw.githubusercontent.com/upendrak/IUTA/master/run_IUTA.R
