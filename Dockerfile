@@ -24,8 +24,8 @@ ENTRYPOINT ["run_IUTA.R"]
 CMD ["-h"]
 
 # Building and testing
-# sudo docker build -t"=ubuntu/IUTA" .
+# docker build -t"=rbase/iuta" .
 # Running with out any arguments
-# sudo docker run ubuntu/IUTA -h
+# sudo docker run rbase/iuta -h
 # With test data
-# sudo docker run --rm -v $(pwd):/working-dir -w /working-dir ubuntu/IUTA --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --fld normal --test.type SKK,CQ,KY --output test_data/new_ouput_test2 --groups 4,5 --gene.id Pcmtd1
+# docker run --rm -v $(pwd):/working-dir -w /working-dir rbase/iuta --gtf mm10_kg_sample_IUTA.gtf --bam1 sample_1.bam,sample_2.bam,sample_3.bam --bam2 sample_4.bam,sample_5.bam,sample_6.bam --fld normal --test.type SKK,CQ,KY --output IUTA_test --groups 4,5 --gene.id Pcmtd1
