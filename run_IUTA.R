@@ -24,6 +24,7 @@ options<-matrix(c(	'gtf',	'i',	1,	"character",
 		  			'bam2',	'ba2',	1,	"character",
 		  			'fld',	'fld',	1,	"character",
 		  			'test.type', 'testtype', 1, "character",
+					'n', 'numsamp', 1, "integer",
 		  			'groups', 'grp', 2, "character",
 		  			'gene.id',	'g',	2, "character",
 		  			'output', 'o', 1,	"character",
@@ -82,13 +83,13 @@ estimates <- paste(output.dir,"estimates.txt",sep="/")
 # pie_compare and bar_compare
 if(!is.null(ret.opts$gene.id) && (!is.null(ret.opts$gene.id)))
 {
+	numb <- ret.opts$n
 	gene.name <- ret.opts$gene.id
 	group.name <- ret.opts$groups
 	group.name <- unlist(strsplit(ret.opts$groups, ","))
 
 	# pie chart
-	pie_compare(gene.name, n1=3, geometry="Euclidean", adjust.weight = 1e-2, output.file =paste("Pieplot_", gene.name, ".pdf", sep = ""), group.name=group.name, estimates, output.screen=FALSE)
+	pie_compare(gene.name, n1=numb, geometry="Euclidean", adjust.weight = 1e-2, output.file =paste("Pieplot_", gene.name, ".pdf", sep = ""), group.name=group.name, estimates, output.screen=FALSE)
 	
 	# bar chart
-	bar_compare(gene.name, n1=3, estimates, legend.pos="topleft", output.screen=FALSE)
-}
+	bar_compare(gene.name, n1=numb, estimates, legend.pos="topleft", output.screen=FALSE)
