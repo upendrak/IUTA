@@ -47,8 +47,8 @@ test.type <- ret.opts$test.type
 output.dir <- ret.opts$output
 
 # bam lists
-bam.list1 <- unlist(strsplit(ret.opts$bam1, ","))
-bam.list2 <- unlist(strsplit(ret.opts$bam2, ","))
+#bam.list1 <- unlist(strsplit(ret.opts$bam1, ","))
+#bam.list2 <- unlist(strsplit(ret.opts$bam2, ","))
 
 # FLD
 if(is.null(ret.opts$fld))
