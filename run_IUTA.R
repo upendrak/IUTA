@@ -93,3 +93,4 @@ if(!is.null(ret.opts$gene.id) && (!is.null(ret.opts$gene.id)))
 	
 	# bar chart
 	bar_compare(gene.name, n1=numb, estimates, legend.pos="topleft", output.screen=FALSE)
+}
