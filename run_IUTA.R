@@ -10,7 +10,7 @@
 
 # Install dependencies
 library("Rsamtools")
-library("IUTA")
+#library("IUTA")
 library("getopt")
 
 args<-commandArgs(TRUE)
@@ -48,8 +48,8 @@ bam.list2 <- ret.opts$bam2
 output.dir <- ret.opts$output
 
 # bam lists
-#bam.list1 <- unlist(strsplit(ret.opts$bam1, ","))
-#bam.list2 <- unlist(strsplit(ret.opts$bam2, ","))
+bam.list1 <- unlist(strsplit(ret.opts$bam1, ","))
+bam.list2 <- unlist(strsplit(ret.opts$bam2, ","))
 
 # FLD
 if(is.null(ret.opts$fld))
@@ -87,7 +87,6 @@ IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1
 
 # Estimate output 
 estimates <- paste(output.dir,"estimates.txt",sep="/")
-
 
 
 # pie_compare and bar_compare
