@@ -10,7 +10,7 @@
 
 # Install dependencies
 library("Rsamtools")
-#library("IUTA")
+library("IUTA")
 library("getopt")
 
 args<-commandArgs(TRUE)
