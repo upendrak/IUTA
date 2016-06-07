@@ -78,6 +78,9 @@ if(length(test.type)>1)
 if(is.null(ret.opts$leg.pos))
 {
 	legend.pos <- "topleft"
+} else
+{
+	legend.pos <- ret.opts$leg.pos
 }
 
 
