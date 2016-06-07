@@ -91,6 +91,10 @@ IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1
 # Estimate output 
 estimates <- paste(output.dir,"estimates.txt",sep="/")
 
+# Read the estimates file
+data <- read.table(estimates, h = T)
+genes <- data[,1]
+gene.uni <- unique(genes)
 
 # pie_compare and bar_compare
 if(!is.null(ret.opts$gene.id) && (!is.null(ret.opts$groups)))
@@ -105,4 +109,20 @@ if(!is.null(ret.opts$gene.id) && (!is.null(ret.opts$groups)))
 	
 	# bar chart
 	bar_compare(gene.name, n1 = numb, output.file = paste("Barplot_", gene.name, ".pdf", sep = ""), group.name = group.name, legend.pos = legend.pos, estimates, output.screen=FALSE)
+} else
+{
+	for (gene in gene.uni) {
+
+	numb <- ret.opts$n
+        group.name <- ret.opts$groups
+        group.name <- unlist(strsplit(ret.opts$groups, ","))
+
+	# pie chart
+	pie_compare(gene, n1 = numb, geometry = "Euclidean", adjust.weight = 1e-2, output.file = paste("Pieplot_", gene, ".pdf", sep = ""), group.name = group.name, estimates, output.screen=FALSE)
+	# bar chart
+	bar_compare(gene, n1 = numb, output.file = paste("Barplot_", gene, ".pdf", sep = ""), group.name = group.name, legend.pos = legend.pos, estimates, output.screen=FALSE)
+ } 
 }
+
+system("tar -zcvf Pie_plots.tar.gz *pdf && rm Pieplot_*.pdf")
+system("tar -zcvf Bie_plots.tar.gz *pdf && rm Barplot_*.pdf")
