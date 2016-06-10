@@ -20,6 +20,7 @@ RUN Rscript -e 'install.packages("getopt");'
 ENV IUTA23 https://raw.githubusercontent.com/upendrak/IUTA/master/run_IUTA.R
 RUN wget $IUTA23
 RUN chmod +x /run_IUTA.R && cp /run_IUTA.R /usr/bin
+RUN wget https://raw.githubusercontent.com/upendrak/IUTA-1.0/master/pie_plot.R
 
 ENTRYPOINT ["run_IUTA.R"]
 CMD ["-h"]
