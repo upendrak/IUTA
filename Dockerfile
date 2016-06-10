@@ -17,7 +17,6 @@ RUN Rscript -e 'source("http://bioconductor.org/biocLite.R"); biocLite("Rsamtool
 RUN Rscript -e 'install.packages("/IUTA_1.0.tar.gz", repos = NULL, type="source");'
 RUN Rscript -e 'install.packages("getopt");'
 
-# Addddddddd files for testing again and fix again
 ADD run_IUTA.R /
 RUN chmod +x /run_IUTA.R && cp /run_IUTA.R /usr/bin
 ADD pie_plot.R /
