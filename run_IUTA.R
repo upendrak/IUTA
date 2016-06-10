@@ -97,6 +97,8 @@ genes <- data[,1]
 gene.uni <- unique(genes)
 
 # pie_compare and bar_compare
+source('~/IUTA/R/pie_plot.R', echo=TRUE)
+
 if(!is.null(ret.opts$gene.id) && (!is.null(ret.opts$groups)))
 {
 	numb <- ret.opts$n
