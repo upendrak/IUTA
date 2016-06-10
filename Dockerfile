@@ -17,10 +17,10 @@ RUN Rscript -e 'source("http://bioconductor.org/biocLite.R"); biocLite("Rsamtool
 RUN Rscript -e 'install.packages("/IUTA_1.0.tar.gz", repos = NULL, type="source");'
 RUN Rscript -e 'install.packages("getopt");'
 
-ENV IUTA23 https://raw.githubusercontent.com/upendrak/IUTA/master/run_IUTA.R
-RUN wget $IUTA23
+# Addddddddd files for testing again and fix again
+ADD run_IUTA.R /
 RUN chmod +x /run_IUTA.R && cp /run_IUTA.R /usr/bin
-RUN wget https://raw.githubusercontent.com/upendrak/IUTA-1.0/master/pie_plot.R
+ADD pie_plot.R /
 
 ENTRYPOINT ["run_IUTA.R"]
 CMD ["-h"]
@@ -29,5 +29,7 @@ CMD ["-h"]
 # docker build -t"=rbase/iuta" .
 # Running with out any arguments
 # sudo docker run rbase/iuta -h
-# With test data
-# docker run --rm -v $(pwd):/working-dir -w /working-dir rbase/iuta --gtf mm10_kg_sample_IUTA.gtf --bam1 sample_1.bam,sample_2.bam,sample_3.bam --bam2 sample_4.bam,sample_5.bam,sample_6.bam --fld normal --test.type SKK,CQ,KY --output IUTA_test --groups 4,5 --gene.id Pcmtd1
+# With test data (with one geneid) 
+# docker run --rm -v $(pwd):/working-dir -w /working-dir rbase/iuta --gtf mm10_kg_sample_IUTA.gtf --bam1 sample_1.bam --bam2 sample_4.bam --fld empirical --test.type SKK,CQ,KY --n 1 --output IUTA_test_1 --groups 4,5 --gene.id Pcmtd1 --leg.pos topright
+# With no gene id (all genes compressed)
+# docker run --rm -v $(pwd):/working-dir -w /working-dir rbase/iuta --gtf mm10_kg_sample_IUTA.gtf --bam1 sample_1.bam --bam2 sample_4.bam --fld empirical --test.type SKK,CQ,KY --n 1 --output IUTA_test_1 --groups 4,5 --leg.pos topright
