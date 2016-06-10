@@ -97,9 +97,9 @@ genes <- data[,1]
 gene.uni <- unique(genes)
 
 # pie_compare and bar_compare
-source('~/IUTA/R/pie_plot.R', echo=TRUE)
+source('/pie_plot.R')
 
-if(!is.null(ret.opts$gene.id) && (!is.null(ret.opts$groups)))
+if(!is.null(ret.opts$gene.id))
 {
 	numb <- ret.opts$n
 	gene.name <- ret.opts$gene.id
@@ -123,8 +123,7 @@ if(!is.null(ret.opts$gene.id) && (!is.null(ret.opts$groups)))
 	pie_compare(gene, n1 = numb, geometry = "Euclidean", adjust.weight = 1e-2, output.file = paste("Pieplot_", gene, ".pdf", sep = ""), group.name = group.name, estimates, output.screen=FALSE)
 	# bar chart
 	bar_compare(gene, n1 = numb, output.file = paste("Barplot_", gene, ".pdf", sep = ""), group.name = group.name, legend.pos = legend.pos, estimates, output.screen=FALSE)
+	system("tar -zcvf Pie_plots.tar.gz *pdf && rm Pieplot_*.pdf")
+	system("tar -zcvf Bar_plots.tar.gz *pdf && rm Barplot_*.pdf")
  } 
 }
-
-system("tar -zcvf Pie_plots.tar.gz *pdf && rm Pieplot_*.pdf")
-system("tar -zcvf Bie_plots.tar.gz *pdf && rm Barplot_*.pdf")
