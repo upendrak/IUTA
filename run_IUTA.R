@@ -123,7 +123,7 @@ if(!is.null(ret.opts$gene.id))
 	pie_compare(gene, n1 = numb, geometry = "Euclidean", adjust.weight = 1e-2, output.file = paste("Pieplot_", gene, ".pdf", sep = ""), group.name = group.name, estimates, output.screen=FALSE)
 	# bar chart
 	bar_compare(gene, n1 = numb, output.file = paste("Barplot_", gene, ".pdf", sep = ""), group.name = group.name, legend.pos = legend.pos, estimates, output.screen=FALSE)
-	system("tar -zcvf Pie_plots.tar.gz *pdf && rm Pieplot_*.pdf")
-	system("tar -zcvf Bar_plots.tar.gz *pdf && rm Barplot_*.pdf")
+	system("tar -zcvf Pieplots.tar.gz Pieplot_*pdf && rm Pieplot_*pdf")
+	system("tar -zcvf Barplots.tar.gz Barplot_*pdf && rm Barplot_*pdf")
  } 
 }
