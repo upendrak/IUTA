@@ -93,8 +93,7 @@ genes <- data[,1]
 gene.uni <- unique(genes)
 
 # pie_compare and bar_compare
-#source('/pie_plot.R')
-source('/pie_plot2.R')
+source('/pie_plot.R')
 
 if(!is.null(ret.opts$gene.id))
 {
