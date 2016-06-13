@@ -70,7 +70,7 @@ if(is.null(ret.opts$leg.pos))
 
 
 # Main function
-if(is.null(ret.opts$fld)) || (ret.opts$fld == "empirical")
+if((is.null(ret.opts$fld)) || (ret.opts$fld == "empirical"))
 {
         FLD <- "empirical"
 	IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1)), rep.info.2 = rep(1, length(bam.list2)), FLD = FLD, test.type = test.type,
