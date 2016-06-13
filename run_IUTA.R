@@ -1,13 +1,5 @@
 #!/usr/bin/Rscript
 
-## Example command line invocation
-# Rscript run_IUTA.R -h (just to look at the help function)
-# Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --fld empirical --test.type SKK,CQ,KY --output test_data/new_ouput_test2  --groups 4,5 --gene.id Pcmtd1
-# Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --test.type SKK,CQ,KY --output test_data/new_ouput_test2  --groups 4,5 --gene.id Pcmtd1
-# Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --fld normal --test.type SKK,CQ,KY --output test_data/new_ouput_test2  --groups 4,5 --gene.id Pcmtd1
-# Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --fld normal --output test_data/new_ouput_test2  --groups 4,5 --gene.id Pcmtd1
-# Rscript run_IUTA.R --gtf test_data/mm10_kg_sample_IUTA.gtf --bam1 test_data/sample_1.bam,test_data/sample_2.bam,test_data/sample_3.bam --bam2 test_data/sample_4.bam,test_data/sample_5.bam,test_data/sample_6.bam --fld normal --test.type SKK,CQ,KY --output test_data/new_ouput_test2
-
 # Install dependencies
 library("Rsamtools")
 library("IUTA")
@@ -19,18 +11,20 @@ args<-commandArgs(TRUE)
 ## Command-line preparations and getopt parsing ##
 #############################################################
 
-options<-matrix(c(	'gtf',	'i',	1,	"character",
-		  			'bam1',	'ba1',	1,	"character",
-		  			'bam2',	'ba2',	1,	"character",
-		  			'fld',	'fld',	1,	"character",
-		  			'test.type', 'testtype', 1, "character",
-					'n', 'numsamp', 1, "integer",
-		  			'groups', 'grp', 2, "character",
-		  			'gene.id',	'g',	2, "character",
-					'leg.pos', 'posn', 2, "character",
-		  			'output', 'o', 1,	"character",
-		  			'help', 'h', 0,      "logical"),
-		  				ncol=4,byrow=TRUE)
+options<-matrix(c('gtf',	'i',	1,	"character",
+		  'bam1',	'ba1',	1,	"character",
+		  'bam2',	'ba2',	1,	"character",
+		  'fld',	'fld',	1,	"character",
+		  'meanflnormal','mfn',	2,	"integer",
+		  'sdflnormal',	'sfn',	2,	"integer",	
+		  'test.type',	'tt', 	1, 	"character",
+		  'numsamp',	'n', 	1, 	"integer",
+		  'groups',	'grp', 	2, 	"character",
+		  'gene.id',	'g',	2, 	"character",
+		  'leg.pos',	'posn', 2, 	"character",
+		  'output',	'o', 	1,	"character",
+		  'help',	'h', 	0,      "logical"),
+		  	ncol=4,byrow=TRUE)
 
 ret.opts<-getopt(options,args)
 
@@ -41,8 +35,8 @@ if ( !is.null(ret.opts$help) ) {
 
 # Assignments
 transcript.info <- ret.opts$gtf
-bam.list1 <- ret.opts$bam1
-bam.list2 <- ret.opts$bam2
+#bam.list1 <- ret.opts$bam1
+#bam.list2 <- ret.opts$bam2
 #FLD <- ret.opts$fld
 #test.type <- ret.opts$test.type
 output.dir <- ret.opts$output
@@ -50,15 +44,6 @@ output.dir <- ret.opts$output
 # bam lists
 bam.list1 <- unlist(strsplit(ret.opts$bam1, ","))
 bam.list2 <- unlist(strsplit(ret.opts$bam2, ","))
-
-# FLD
-if(is.null(ret.opts$fld))
-{
-	FLD <- "empirical"
-} else
-{
-	FLD <- ret.opts$fld
-}
 
 # test type
 if(is.null(ret.opts$testtype))
@@ -85,8 +70,19 @@ if(is.null(ret.opts$leg.pos))
 
 
 # Main function
-IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1)), rep.info.2 = rep(1, length(bam.list2)), FLD = FLD, test.type = test.type,
-    output.dir = output.dir, output.na = TRUE, genes.interested = "all")
+if(is.null(ret.opts$fld)) || (ret.opts$fld == "empirical")
+{
+        FLD <- "empirical"
+	IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1)), rep.info.2 = rep(1, length(bam.list2)), FLD = FLD, test.type = test.type,
+    		output.dir = output.dir, output.na = TRUE, genes.interested = "all")
+}else if(ret.opts$fld == "normal")
+{
+        FLD <- "normal"
+	mean.FL.normal <- ret.opts$meanflnormal
+        sd.FL.normal <- ret.opts$sdflnormal
+        IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1)), rep.info.2 = rep(1, length(bam.list2)), FLD = FLD, mean.FL.normal = mean.FL.normal,                         sd.FL.normal = sd.FL.normal, test.type = test.type, output.dir = output.dir, output.na = TRUE, genes.interested = "all")
+}
+
 
 # Estimate output 
 estimates <- paste(output.dir,"estimates.txt",sep="/")
@@ -97,7 +93,8 @@ genes <- data[,1]
 gene.uni <- unique(genes)
 
 # pie_compare and bar_compare
-source('/pie_plot.R')
+#source('/pie_plot.R')
+source('/pie_plot2.R')
 
 if(!is.null(ret.opts$gene.id))
 {
