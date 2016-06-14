@@ -17,10 +17,12 @@ RUN Rscript -e 'source("http://bioconductor.org/biocLite.R"); biocLite("Rsamtool
 RUN Rscript -e 'install.packages("/IUTA_1.0.tar.gz", repos = NULL, type="source");'
 RUN Rscript -e 'install.packages("getopt");'
 
+ADD pie_compare.R /
+ADD pie_plot.R /
+
 # Add wrapper script
 ADD run_IUTA.R /
 RUN chmod +x /run_IUTA.R && cp /run_IUTA.R /usr/bin
-RUN sed 's/ncol=ifelse(n.isoform>5,2,1)/ncol=1/g' /IUTA/R/pie_plot.R > /temp && mv /temp /IUTA/R/pie_plot.R
 
 ENTRYPOINT ["run_IUTA.R"]
 CMD ["-h"]
