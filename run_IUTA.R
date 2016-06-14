@@ -80,7 +80,7 @@ if((is.null(ret.opts$fld)) || (ret.opts$fld == "empirical"))
         FLD <- "normal"
 	mean.FL.normal <- ret.opts$meanflnormal
         sd.FL.normal <- ret.opts$sdflnormal
-        IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1)), rep.info.2 = rep(1, length(bam.list2)), FLD = FLD, mean.FL.normal = mean.FL.normal,                         sd.FL.normal = sd.FL.normal, test.type = test.type, output.dir = output.dir, output.na = TRUE, genes.interested = "all")
+        IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1)), rep.info.2 = rep(1, length(bam.list2)), FLD = FLD, mean.FL.normal = mean.FL.normal, sd.FL.normal = sd.FL.normal, 		    test.type = test.type, output.dir = output.dir, output.na = TRUE, genes.interested = "all")
 }
 
 
@@ -93,9 +93,11 @@ genes <- data[,1]
 gene.uni <- unique(genes)
 
 # pie_compare and bar_compare
+source('/pie_compare.R')
+source('/pie_plot.R')
 if(!is.null(ret.opts$gene.id))
 {
-	numb <- ret.opts$n
+	numb <- ret.opts$numsamp
 	gene.name <- ret.opts$gene.id
 	group.name <- ret.opts$groups
 	group.name <- unlist(strsplit(ret.opts$groups, ","))
