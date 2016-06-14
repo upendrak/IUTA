@@ -20,6 +20,7 @@ RUN Rscript -e 'install.packages("getopt");'
 # Add custom piecompare and pieplot functions
 ADD pie_compare.R /
 ADD pie_plot.R /
+ADD bar_compare.R /
 
 # Add wrapper script
 ADD run_IUTA.R /
