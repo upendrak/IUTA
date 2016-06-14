@@ -17,6 +17,7 @@ RUN Rscript -e 'source("http://bioconductor.org/biocLite.R"); biocLite("Rsamtool
 RUN Rscript -e 'install.packages("/IUTA_1.0.tar.gz", repos = NULL, type="source");'
 RUN Rscript -e 'install.packages("getopt");'
 
+# Add custom piecompare and pieplot functions
 ADD pie_compare.R /
 ADD pie_plot.R /
 
