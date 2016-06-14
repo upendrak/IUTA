@@ -80,7 +80,7 @@ if((is.null(ret.opts$fld)) || (ret.opts$fld == "empirical"))
         FLD <- "normal"
 	mean.FL.normal <- ret.opts$meanflnormal
         sd.FL.normal <- ret.opts$sdflnormal
-        IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1)), rep.info.2 = rep(1, length(bam.list2)), FLD = FLD, mean.FL.normal = mean.FL.normal, sd.FL.normal = sd.FL.normal, 		    test.type = test.type, output.dir = output.dir, output.na = TRUE, genes.interested = "all")
+        IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1)), rep.info.2 = rep(1, length(bam.list2)), FLD = FLD, mean.FL.normal = mean.FL.normal, 		     sd.FL.normal = sd.FL.normal, test.type = test.type, output.dir = output.dir, output.na = TRUE, genes.interested = "all")
 }
 
 
@@ -95,6 +95,7 @@ gene.uni <- unique(genes)
 # pie_compare and bar_compare
 source('/pie_compare.R')
 source('/pie_plot.R')
+
 if(!is.null(ret.opts$gene.id))
 {
 	numb <- ret.opts$numsamp
@@ -103,10 +104,10 @@ if(!is.null(ret.opts$gene.id))
 	group.name <- unlist(strsplit(ret.opts$groups, ","))
 
 	# pie chart
-	pie_compare(gene.name, n1 = numb, geometry = "Euclidean", adjust.weight = 1e-2, output.file = paste("Pieplot_", gene.name, ".pdf", sep = ""), group.name = group.name, estimates, output.screen=FALSE)
+	pie_compare(gene.name, n1 = numb, geometry = "Euclidean", adjust.weight = 1e-2, output.file = paste("Pieplot_", gene.name, ".pdf", sep = ""), group.name = group.name,                      estimates)
 	
 	# bar chart
-	bar_compare(gene.name, n1 = numb, output.file = paste("Barplot_", gene.name, ".pdf", sep = ""), group.name = group.name, legend.pos = legend.pos, estimates, output.screen=FALSE)
+	bar_compare(gene.name, n1 = numb, output.file = paste("Barplot_", gene.name, ".pdf", sep = ""), group.name = group.name, legend.pos = legend.pos, estimates, 				   output.screen=FALSE)
 } else
 {
 	for (gene in gene.uni) {
@@ -116,7 +117,7 @@ if(!is.null(ret.opts$gene.id))
         group.name <- unlist(strsplit(ret.opts$groups, ","))
 
 	# pie chart
-	pie_compare(gene, n1 = numb, geometry = "Euclidean", adjust.weight = 1e-2, output.file = paste("Pieplot_", gene, ".pdf", sep = ""), group.name = group.name, estimates, output.screen=FALSE)
+	pie_compare(gene, n1 = numb, geometry = "Euclidean", adjust.weight = 1e-2, output.file = paste("Pieplot_", gene, ".pdf", sep = ""), group.name = group.name, estimates)
 	# bar chart
 	bar_compare(gene, n1 = numb, output.file = paste("Barplot_", gene, ".pdf", sep = ""), group.name = group.name, legend.pos = legend.pos, estimates, output.screen=FALSE)
  }
