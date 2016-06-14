@@ -1,10 +1,9 @@
-pie_compare<-function(gene.name,n1,estimates.file="estimates.txt",geometry="Euclidean",adjust.weight=1E-300,output.file=paste("Pieplot_",gene.name,".pdf",sep=""),group.name=c("1","2"),output.screen=FALSE){
+pie_compare<-function(gene.name,n1,estimates.file="estimates.txt",geometry="Euclidean",adjust.weight=1E-300,output.file=paste("Pieplot_",gene.name,".pdf",sep=""),group.name=c("1","2")){
   estimates<-read.delim(estimates.file,stringsAsFactors=FALSE,comment.char="#")
   estimates.gene<-estimates[estimates[,1]==gene.name,,drop=FALSE]
   
   if (nrow(estimates.gene)==0 | sum(is.na(estimates.gene[1,-(1:2)]))==(ncol(estimates.gene)-2)){
-    try("No data for the input gene dude! \n")
-    #stop("No data for the input gene! \n")
+    try("No data for the input gene! \n")
   }
   else{
     isoforms<-estimates.gene[,2]
