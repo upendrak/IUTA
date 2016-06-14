@@ -1,4 +1,4 @@
-pie_plot<-function(mean.IU,isoforms,gene.name,output.file,group,output.screen){
+pie_plot<-function(mean.IU,isoforms,gene.name,output.file,group){
   n.isoform<-length(isoforms)
   color.pie<-as.vector(t(sapply(seq(1,0.1,length.out=n.isoform/5),function(i)rainbow(5,s=i))))
   

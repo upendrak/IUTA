@@ -20,7 +20,7 @@ pie_compare<-function(gene.name,n1,estimates.file="estimates.txt",geometry="Eucl
         usage.2.m<-apply(usage.2,1:2,function(j){ifelse(j==0,adjust.weight,j)})
         temp<-matrix(ilrInv(matrix(colMeans(ilr(usage.2.m)),nrow=1)),nrow=1)
       }
-      pie_plot(temp,isoforms,gene.name,output.file,group=group.name[2],output.screen=output.screen)
+      pie_plot(temp,isoforms,gene.name,output.file,group=group.name[2])
     }
     else if (nrow(usage.2)==0){
       if (geometry=="Euclidean"){
@@ -30,7 +30,7 @@ pie_compare<-function(gene.name,n1,estimates.file="estimates.txt",geometry="Eucl
         usage.1.m<-apply(usage.1,1:2,function(j){ifelse(j==0,adjust.weight,j)})
         temp<-matrix(ilrInv(matrix(colMeans(ilr(usage.1.m)),nrow=1)),nrow=1)
       }
-      pie_plot(temp,isoforms,gene.name,output.file,group=group.name[1],output.screen=output.screen)
+      pie_plot(temp,isoforms,gene.name,output.file,group=group.name[1])
     }
     else{
       if (geometry=="Euclidean"){
@@ -40,7 +40,7 @@ pie_compare<-function(gene.name,n1,estimates.file="estimates.txt",geometry="Eucl
         usage.1.m<-apply(usage.1,1:2,function(j){ifelse(j==0,adjust.weight,j)}); usage.2.m<-apply(usage.2,1:2,function(j){ifelse(j==0,adjust.weight,j)});
         temp<-rbind(matrix(ilrInv(matrix(colMeans(ilr(usage.1.m)),nrow=1)),nrow=1),matrix(ilrInv(matrix(colMeans(ilr(usage.2.m)),nrow=1)),nrow=1))
       }
-      pie_plot(temp,isoforms,gene.name,output.file,group=group.name,output.screen=output.screen)
+      pie_plot(temp,isoforms,gene.name,output.file,group=group.name)
     }
   }
 }
