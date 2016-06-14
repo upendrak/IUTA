@@ -95,6 +95,7 @@ gene.uni <- unique(genes)
 # pie_compare and bar_compare
 source('/pie_compare.R')
 source('/pie_plot.R')
+source('/bar_compare.R')
 
 if(!is.null(ret.opts$gene.id))
 {
@@ -107,7 +108,7 @@ if(!is.null(ret.opts$gene.id))
 	pie_compare(gene.name, n1 = numb, geometry = "Euclidean", adjust.weight = 1e-2, output.file = paste("Pieplot_", gene.name, ".pdf", sep = ""), group.name = group.name,                      estimates)
 	
 	# bar chart
-	bar_compare(gene.name, n1 = numb, output.file = paste("Barplot_", gene.name, ".pdf", sep = ""), group.name = group.name, legend.pos = legend.pos, estimates, 				   output.screen=FALSE)
+	bar_compare(gene.name, n1 = numb, output.file = paste("Barplot_", gene.name, ".pdf", sep = ""), group.name = group.name, legend.pos = legend.pos, estimates)
 } else
 {
 	for (gene in gene.uni) {
@@ -119,7 +120,7 @@ if(!is.null(ret.opts$gene.id))
 	# pie chart
 	pie_compare(gene, n1 = numb, geometry = "Euclidean", adjust.weight = 1e-2, output.file = paste("Pieplot_", gene, ".pdf", sep = ""), group.name = group.name, estimates)
 	# bar chart
-	bar_compare(gene, n1 = numb, output.file = paste("Barplot_", gene, ".pdf", sep = ""), group.name = group.name, legend.pos = legend.pos, estimates, output.screen=FALSE)
+	bar_compare(gene, n1 = numb, output.file = paste("Barplot_", gene, ".pdf", sep = ""), group.name = group.name, legend.pos = legend.pos, estimates)
  }
 	system("tar -zcvf Pieplots.tar.gz Pieplot_*pdf && rm Pieplot_*pdf") 
 	system("tar -zcvf Barplots.tar.gz Barplot_*pdf && rm Barplot_*pdf")
