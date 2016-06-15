@@ -35,15 +35,11 @@ if ( !is.null(ret.opts$help) ) {
 
 # Assignments
 transcript.info <- ret.opts$gtf
-#bam.list1 <- ret.opts$bam1
-#bam.list2 <- ret.opts$bam2
-#FLD <- ret.opts$fld
-#test.type <- ret.opts$test.type
 output.dir <- ret.opts$output
 
 # bam lists
-bam.list1 <- unlist(strsplit(ret.opts$bam1, ","))
-bam.list2 <- unlist(strsplit(ret.opts$bam2, ","))
+bam.list1 <- list.files(ret.opts$bam1, pattern = "bam$", full.names=TRUE)
+bam.list2 <- list.files(ret.opts$bam2, pattern = "bam$", full.names=TRUE)
 
 # test type
 if(is.null(ret.opts$testtype))
@@ -96,6 +92,7 @@ gene.uni <- unique(genes)
 source('/pie_compare.R')
 source('/pie_plot.R')
 source('/bar_compare.R')
+
 
 if(!is.null(ret.opts$gene.id))
 {
