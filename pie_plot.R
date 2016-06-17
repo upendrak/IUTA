@@ -3,7 +3,7 @@ pie_plot<-function(mean.IU,isoforms,gene.name,output.file,group){
   color.pie<-as.vector(t(sapply(seq(1,0.1,length.out=n.isoform/5),function(i)rainbow(5,s=i))))
   
   if (nrow(mean.IU)==2){
-    pdf(output.file,width=15,height=8)
+    pdf(output.file,width=15,height=10)
     
     par(mar=c(0,0,0,0),oma=c(0,0,10,0),bg="seashell")
     layout(matrix(1:3,nrow=1),widths=c(2,1,2))
@@ -18,7 +18,7 @@ pie_plot<-function(mean.IU,isoforms,gene.name,output.file,group){
     dev.off()
   }
   else{
-    pdf(output.file,width=15,height=8)
+    pdf(output.file,width=15,height=10)
     
     par(mar=c(0,0,0,0),oma=c(0,0,10,0),bg="seashell")
     layout(matrix(1:2,nrow=1),widths=c(5,5))
