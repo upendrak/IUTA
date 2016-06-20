@@ -1,9 +1,13 @@
 #!/usr/bin/Rscript
 
 # Install dependencies
-library("Rsamtools")
-library("IUTA")
-library("getopt")
+library(Rsamtools)
+library(IUTA)
+library(getopt)
+library(ggplot2)
+library(reshape2)
+library(grid)
+
 
 args<-commandArgs(TRUE)
 
@@ -21,7 +25,6 @@ options<-matrix(c('gtf',	'i',	1,	"character",
 		  'numsamp',	'n', 	1, 	"integer",
 		  'groups',	'grp', 	2, 	"character",
 		  'gene.id',	'g',	2, 	"character",
-		  'leg.pos',	'posn', 2, 	"character",
 		  'output',	'o', 	1,	"character",
 		  'help',	'h', 	0,      "logical"),
 		  	ncol=4,byrow=TRUE)
@@ -55,26 +58,17 @@ if(length(test.type)>1)
 	test.type <- unlist(strsplit(ret.opts$test.type, ","))
 }
 
-# Legend position
-if(is.null(ret.opts$leg.pos))
-{
-	legend.pos <- "topleft"
-} else
-{
-	legend.pos <- ret.opts$leg.pos
-}
-
 
 # Main function
 if((is.null(ret.opts$fld)) || (ret.opts$fld == "empirical"))
 {
         FLD <- "empirical"
-	IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1)), rep.info.2 = rep(1, length(bam.list2)), FLD = FLD, test.type = test.type,
+		IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1)), rep.info.2 = rep(1, length(bam.list2)), FLD = FLD, test.type = test.type,
     		output.dir = output.dir, output.na = TRUE, genes.interested = "all")
 }else if(ret.opts$fld == "normal")
 {
         FLD <- "normal"
-	mean.FL.normal <- ret.opts$meanflnormal
+		mean.FL.normal <- ret.opts$meanflnormal
         sd.FL.normal <- ret.opts$sdflnormal
         IUTA(bam.list1, bam.list2, transcript.info, rep.info.1 = rep(1, length(bam.list1)), rep.info.2 = rep(1, length(bam.list2)), FLD = FLD, mean.FL.normal = mean.FL.normal, 		     sd.FL.normal = sd.FL.normal, test.type = test.type, output.dir = output.dir, output.na = TRUE, genes.interested = "all")
 }
@@ -93,7 +87,6 @@ source('/pie_compare.R')
 source('/pie_plot.R')
 source('/bar_compare.R')
 
-
 if(!is.null(ret.opts$gene.id))
 {
 	numb <- ret.opts$numsamp
@@ -102,22 +95,24 @@ if(!is.null(ret.opts$gene.id))
 	group.name <- unlist(strsplit(ret.opts$groups, ","))
 
 	# pie chart
-	pie_compare(gene.name, n1 = numb, geometry = "Euclidean", adjust.weight = 1e-2, output.file = paste("Pieplot_", gene.name, ".pdf", sep = ""), group.name = group.name,                      estimates)
+	pie_compare(gene.name, n1 = numb, geometry = "Euclidean", adjust.weight = 1e-2, output.file = paste("Pieplot_", gene.name, ".pdf", sep = ""), group.name = group.name, estimates)
 	
 	# bar chart
-	bar_compare(gene.name, n1 = numb, output.file = paste("Barplot_", gene.name, ".pdf", sep = ""), group.name = group.name, legend.pos = legend.pos, estimates)
+	bar_compare(gene.name, n1 = numb, output.file = paste("Barplot_", gene.name, ".pdf", sep = ""), group.name = group.name, estimates = estimates)
 } else
 {
 	for (gene in gene.uni) {
 
 	numb <- ret.opts$n
-        group.name <- ret.opts$groups
-        group.name <- unlist(strsplit(ret.opts$groups, ","))
+    group.name <- ret.opts$groups
+    group.name <- unlist(strsplit(ret.opts$groups, ","))
 
 	# pie chart
 	pie_compare(gene, n1 = numb, geometry = "Euclidean", adjust.weight = 1e-2, output.file = paste("Pieplot_", gene, ".pdf", sep = ""), group.name = group.name, estimates)
+	
 	# bar chart
-	bar_compare(gene, n1 = numb, output.file = paste("Barplot_", gene, ".pdf", sep = ""), group.name = group.name, legend.pos = legend.pos, estimates)
+	bar_compare(gene, n1 = numb, output.file = paste("Barplot_", gene.name, ".pdf", sep = ""), group.name = group.name, estimates = estimates)
+
  }
 	system("tar -zcvf Pieplots.tar.gz Pieplot_*pdf && rm Pieplot_*pdf") 
 	system("tar -zcvf Barplots.tar.gz Barplot_*pdf && rm Barplot_*pdf")
