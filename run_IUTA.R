@@ -101,17 +101,17 @@ if(!is.null(ret.opts$gene.id))
 	bar_compare(gene.name, n1 = numb, output.file = paste("Barplot_", gene.name, ".pdf", sep = ""), group.name = group.name, estimates = estimates)
 } else
 {
-	for (gene in gene.uni) {
+	for (gene.name in gene.uni) {
 
-	numb <- ret.opts$n
-    group.name <- ret.opts$groups
-    group.name <- unlist(strsplit(ret.opts$groups, ","))
+	numb <- ret.opts$numsamp
+    	group.name <- ret.opts$groups
+    	group.name <- unlist(strsplit(ret.opts$groups, ","))
 
 	# pie chart
-	pie_compare(gene, n1 = numb, geometry = "Euclidean", adjust.weight = 1e-2, output.file = paste("Pieplot_", gene, ".pdf", sep = ""), group.name = group.name, estimates)
+	pie_compare(gene.name, n1 = numb, geometry = "Euclidean", adjust.weight = 1e-2, output.file = paste("Pieplot_", gene.name, ".pdf", sep = ""), group.name = group.name, estimates)
 	
 	# bar chart
-	bar_compare(gene, n1 = numb, output.file = paste("Barplot_", gene.name, ".pdf", sep = ""), group.name = group.name, estimates = estimates)
+	bar_compare(gene.name, n1 = numb, output.file = paste("Barplot_", gene.name, ".pdf", sep = ""), group.name = group.name, estimates = estimates)
 
  }
 	system("tar -zcvf Pieplots.tar.gz Pieplot_*pdf && rm Pieplot_*pdf") 
