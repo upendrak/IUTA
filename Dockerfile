@@ -16,8 +16,11 @@ RUN tar zxvf IUTA_1.0.tar.gz
 RUN Rscript -e 'source("http://bioconductor.org/biocLite.R"); biocLite("Rsamtools");'
 RUN Rscript -e 'install.packages("/IUTA_1.0.tar.gz", repos = NULL, type="source");'
 RUN Rscript -e 'install.packages("getopt");'
+RUN Rscript -e 'install.packages("ggplot2");'
+RUN Rscript -e 'install.packages("reshape2");'
+RUN Rscript -e 'install.packages("grid");'
 
-# Add Custom Pie_compare, Pie_plot and Bar_compare functions inside IUTA-1.0 container
+# Add multiple custom Pie_compare, custom Pie_plot and custom Bar_compare functions into IUTA-1.0 container
 ADD pie_compare.R /
 ADD pie_plot.R /
 ADD bar_compare.R /
