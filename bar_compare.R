@@ -1,6 +1,11 @@
 bar_compare<-function(gene.name,n1,estimates.file,output.file=paste("Barplot_",gene.name,".pdf",sep=""),group.name){
     estimates<-read.delim(estimates.file,stringsAsFactors=FALSE,comment.char="#")
     estimates.gene<-estimates[estimates[,1]==gene.name,,drop=FALSE]
+    
+    if (nrow(estimates.gene)==0 | sum(is.na(estimates.gene[1,-(1:2)]))==(ncol(estimates.gene)-2)){
+      try("No data for the input gene! \n")
+    }
+    else{
     estimates.gene1 <- estimates.gene[,-c(1)]
     usage.data<-t(estimates.gene[,-(1:2)])
     
@@ -68,5 +73,6 @@ bar_compare<-function(gene.name,n1,estimates.file,output.file=paste("Barplot_",g
       theme(strip.text.x = element_text(size = 12, colour = "black"))
     facetAdjust(d)
     dev.off()
+    }
 }
 
