@@ -20,7 +20,7 @@ RUN Rscript -e 'install.packages("ggplot2");'
 RUN Rscript -e 'install.packages("reshape2");'
 RUN Rscript -e 'install.packages("grid");'
 
-# Add multiple custom Pie_compare, custom Pie_plot and custom Bar_compare functions into IUTA-1.0 container
+# Add multiple custom functions for Pie_compare, Pie_plot and Bar_compare plots
 ADD pie_compare.R /
 ADD pie_plot.R /
 ADD bar_compare.R /
