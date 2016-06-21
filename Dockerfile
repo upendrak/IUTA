@@ -33,10 +33,8 @@ ENTRYPOINT ["run_IUTA.R"]
 CMD ["-h"]
 
 # Building and testing
-# docker build -t"=rbase/iuta" .
-# Running with out any arguments
-# sudo docker run rbase/iuta -h
-# With test data (with one geneid) 
-# docker run --rm -v $(pwd):/working-dir -w /working-dir rbase/iuta --gtf mm10_kg_sample_IUTA.gtf --bam1 sample_1.bam --bam2 sample_4.bam --fld empirical --test.type SKK,CQ,KY --n 1 --output IUTA_test_1 --groups 4,5 --gene.id Pcmtd1 --leg.pos topright
+# sudo docker build -t"=ubuntu/iuta:1.0" .
+# sudo docker run ubuntu/iuta:1.0 -h
+# sudo docker run --rm -v $(pwd):/working-dir -w /working-dir ubuntu/iuta:1.0 --gtf mm10_kg_sample_IUTA.gtf --bam1 bam_1 --bam2 bam_2 --fld empirical --test.type SKK,CQ,KY --numsamp 3 --output IUTA_test_1 --groups 1,2 --gene.id Pcmtd1 
 # With no gene id (all genes compressed)
-# docker run --rm -v $(pwd):/working-dir -w /working-dir rbase/iuta --gtf mm10_kg_sample_IUTA.gtf --bam1 sample_1.bam --bam2 sample_4.bam --fld empirical --test.type SKK,CQ,KY --n 1 --output IUTA_test_1 --groups 4,5 --leg.pos topright
+# sudo docker run --rm -v $(pwd):/working-dir -w /working-dir ubuntu/iuta:1.0 --gtf mm10_kg_sample_IUTA.gtf --bam1 bam_1 --bam2 bam_2 --fld empirical --test.type SKK,CQ,KY --numsamp 3 --output IUTA_test_1 --groups 1,2
